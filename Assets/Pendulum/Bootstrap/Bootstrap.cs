@@ -16,7 +16,7 @@ namespace Pendulum.Bootstrap
         [SerializeField] private ScoreScreenView _scoreScreenView;
         [SerializeField] private PendulumSwinger _pendulumSwinger;
         [SerializeField] private Ball _ballPrefab;
-        [SerializeField] private BallsSettings ballsSettings;
+        [SerializeField] private BallsSettings _ballsSettings;
         [SerializeField] private BallChecker[] _checkers;
         [SerializeField] private BallFallDetector _fallDetector;
         
@@ -36,7 +36,7 @@ namespace Pendulum.Bootstrap
             
             _pendulumSwinger.Init(
                 new BallFactory(
-                    ballsSettings.Settings, 
+                    _ballsSettings.Settings, 
                     _ballPrefab, 
                     _pendulumSwinger.BallParent));
 
@@ -45,9 +45,12 @@ namespace Pendulum.Bootstrap
 
             _fallDetector.Init(_pendulumSwinger.OnFallCallback);
             
-            var gameScreen = new GameScreen(_gameScreenView, score,
+            var gameScreen = new GameScreen(
+                _gameScreenView, 
+                score,
                 _pendulumSwinger,
                 matchSystem,
+                _ballsSettings.Settings,
                 () => _screenManager.EnableScreen(ScreenNames.Score));
             
             _gameScreenView.Init(gameScreen.OnClick);

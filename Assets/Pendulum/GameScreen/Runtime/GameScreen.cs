@@ -10,16 +10,19 @@ namespace Pendulum.Screens.GameScreen
         private readonly PendulumSwinger _pendulumSwinger;
         private readonly BallMatchSystem _ballMatchSystem;
         private readonly Action _gameOverCallback;
-
+        private readonly BallSettings[] _settings;
+        
         public GameScreen(
             GameScreenView view,
             Score score, 
             PendulumSwinger pendulumSwinger,
             BallMatchSystem ballMatchSystem,
+            BallSettings[] settings,
             Action gameOverCallback)
         {
             _view = view;
             _score = score;
+            _settings = settings;
             _pendulumSwinger = pendulumSwinger;
             _ballMatchSystem = ballMatchSystem;
             _gameOverCallback = gameOverCallback;
@@ -53,7 +56,7 @@ namespace Pendulum.Screens.GameScreen
 
         private void OnMatch(int ballId)
         {
-            _score.Add(ballId);
+            _score.Add(_settings[ballId].MatchScore);
         }
 
         private void OnGameOver()

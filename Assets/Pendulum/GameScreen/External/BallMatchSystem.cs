@@ -83,12 +83,23 @@ namespace Pendulum.Screens.GameScreen
             _ballsIds[row, column] = id;
 
             LogArray();
-            //CheckMatch(row, column);
+            
+            if (id == -1)
+            {
+                return;
+            }
+            
+            CheckMatch(row, column);
         }
 
         private void CheckMatch(int row, int column)
         {
             var ballID = _ballsIds[row, column];
+
+            if (ballID == -1)
+            {
+                return;
+            }
 
             // if match => remove balls, add score
             
