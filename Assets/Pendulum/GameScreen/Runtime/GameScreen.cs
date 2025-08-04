@@ -27,7 +27,7 @@ namespace Pendulum.Screens.GameScreen
             _ballMatchSystem = ballMatchSystem;
             _gameOverCallback = gameOverCallback;
 
-            _ballMatchSystem.Init(OnMatch, OnGameOver);
+            _ballMatchSystem.Init(OnMatch, OnGameOver, _pendulumSwinger);
             _pendulumSwinger.Toggle(false);
         }
 
@@ -42,11 +42,11 @@ namespace Pendulum.Screens.GameScreen
             {
                 return;
             }
-            
+
             _view.gameObject.SetActive(isActive);
             _view.ToggleTouchDetector(isActive);
-            
             _pendulumSwinger.Toggle(isActive);
+            _ballMatchSystem.Toggle(isActive);
         }
 
         public void OnClick()
